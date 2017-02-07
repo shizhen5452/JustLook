@@ -21,13 +21,13 @@ import java.util.List;
 
 public class ZhihuDaliyAdapter extends RecyclerView.Adapter {
     private List<ZhihuDaliyBean.StoriesBean> mStoriesBeanList;
-    private String                           mDate;
+    private List<String>                           mDateList;
     private static final int TYPE_NO_DATE   = 1;
     private static final int TYPE_WITH_DATE = 2;
     private Context mContext;
 
-    public ZhihuDaliyAdapter(String date, List<ZhihuDaliyBean.StoriesBean> storiesBeanList) {
-        mDate = date;
+    public ZhihuDaliyAdapter(List<String> dateList, List<ZhihuDaliyBean.StoriesBean> storiesBeanList) {
+        mDateList = dateList;
         mStoriesBeanList = storiesBeanList;
     }
 
@@ -56,7 +56,11 @@ public class ZhihuDaliyAdapter extends RecyclerView.Adapter {
             ZhihuDaliyDateViewHolder zhihuDaliyDateViewHolder = (ZhihuDaliyDateViewHolder) holder;
             zhihuDaliyDateViewHolder.mTvTitle.setText(storiesBean.getTitle());
             Glide.with(mContext.getApplicationContext()).load(storiesBean.getImages().get(0)).into(zhihuDaliyDateViewHolder.mIvPic);
-            zhihuDaliyDateViewHolder.mTvDate.setText(DateUtils.getDate(mDate));
+            for (int i = 0; i < mDateList.size(); i++) {
+                if (position/19==i) {
+                    zhihuDaliyDateViewHolder.mTvDate.setText(DateUtils.getDate(mDateList.get(i)));
+                }
+            }
         }
         final int id = storiesBean.getId();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +80,7 @@ public class ZhihuDaliyAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
+        if (position%19==0) {
             return TYPE_WITH_DATE;
         }
         return TYPE_NO_DATE;

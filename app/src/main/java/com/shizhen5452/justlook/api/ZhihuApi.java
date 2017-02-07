@@ -17,4 +17,7 @@ public interface ZhihuApi {
 
     @GET("news/{id}")
     Call<ZhihuDetailBean> getZhihuDetail(@Path("id") int id);
+
+    @GET("news/before/{date}")
+    Call<ZhihuDaliyBean> getBeforeDetail(@Path("date") String date);
 }

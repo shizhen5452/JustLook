@@ -6,4 +6,5 @@ package com.shizhen5452.justlook.presenter;
 
 public interface ZhihuDaliyPresenter {
     void initZhihu();
+    void loadMore(String date);
 }

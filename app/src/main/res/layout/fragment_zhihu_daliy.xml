@@ -33,6 +33,7 @@
                 app:canLoop="true"
                 app:layout_scrollFlags="scroll"
                 />
+
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView

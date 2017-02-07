@@ -20,6 +20,7 @@ import com.shizhen5452.justlook.activity.MainActivity;
 import com.shizhen5452.justlook.activity.ZhihuDetailActivity;
 import com.shizhen5452.justlook.adapter.ZhihuDaliyAdapter;
 import com.shizhen5452.justlook.bean.ZhihuDaliyBean;
+import com.shizhen5452.justlook.listener.ZhihuDaliyOnScrollListener;
 import com.shizhen5452.justlook.presenter.ZhihuDaliyPresenter;
 import com.shizhen5452.justlook.presenter.presenterimpl.ZhihuDaliyPresenterImpl;
 import com.shizhen5452.justlook.utils.Constant;
@@ -31,7 +32,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, AppBarLayout.OnOffsetChangedListener, ZhihuDaliyAdapter.OnZhihuItemClickListener {
+public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, AppBarLayout.OnOffsetChangedListener, ZhihuDaliyAdapter.OnZhihuItemClickListener, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.rv_zhihu)
     RecyclerView       mRvZhihu;
     @BindView(R.id.swipeRefreshLayout)
@@ -45,6 +46,8 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
     private ZhihuDaliyPresenter mZhihuDaliyPresenter;
     private List<String> mImageList = new ArrayList<>();
     private ZhihuDaliyAdapter mZhihuDaliyAdapter;
+    private String mDate;
+    private List<String> mDateList=new ArrayList<>();
 
     @Override
     protected int setLayoutResId() {
@@ -67,10 +70,12 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
     @Override
     protected void initListener() {
         mAppBarLayout.addOnOffsetChangedListener(this);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
     @Override
     protected void initData() {
+        mDateList.clear();
         //初始化知乎日报最新消息
         mZhihuDaliyPresenter = new ZhihuDaliyPresenterImpl(this);
         mZhihuDaliyPresenter.initZhihu();
@@ -83,18 +88,40 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
     }
 
     @Override
-    public void onInitZhihu(ZhihuDaliyBean zhihuDaliyBean) {
+    public void onInitZhihu(ZhihuDaliyBean zhihuDaliyBean,List<ZhihuDaliyBean.StoriesBean> allStoriesBeanList) {
         initPager(zhihuDaliyBean);
-
-        mRvZhihu.setLayoutManager(new LinearLayoutManager(getContext()));
-        mZhihuDaliyAdapter = new ZhihuDaliyAdapter(zhihuDaliyBean.getDate(), zhihuDaliyBean.getStories());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        mRvZhihu.setLayoutManager(linearLayoutManager);
+        mDate = zhihuDaliyBean.getDate();
+        mDateList.add(mDate);
+        mZhihuDaliyAdapter = new ZhihuDaliyAdapter(mDateList,allStoriesBeanList);
         mZhihuDaliyAdapter.setOnZhihuItemClickListener(this);
         mRvZhihu.setAdapter(mZhihuDaliyAdapter);
+        mRvZhihu.addOnScrollListener(new ZhihuDaliyOnScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int currentPage) {
+                loadMoreData();
+            }
+        });
+    }
+
+    /**
+     * 加载更多
+     */
+    private void loadMoreData() {
+        mZhihuDaliyPresenter.loadMore(mDate);
     }
 
     @Override
     public void onError() {
         ToastUtils.showShortToast(getActivity(),getResources().getString(R.string.access_net_fail));
+    }
+
+    @Override
+    public void onLoadMore(ZhihuDaliyBean zhihuDaliyBean) {
+        mDate=zhihuDaliyBean.getDate();
+        mDateList.add(mDate);
+        mZhihuDaliyAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -113,6 +140,11 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
                 return new ZhihuHolderView();
             }
         }, mImageList);
+    }
+
+    @Override
+    public void onRefresh() {
+        initData();
     }
 
     class ZhihuHolderView implements Holder<String> {

@@ -1,5 +1,6 @@
 package com.shizhen5452.justlook.activity;
 
+import android.app.ProgressDialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import com.shizhen5452.justlook.utils.Constant;
 
 public class BaseActivity extends AppCompatActivity {
     protected BaseFragment currentFragment= FragmentFactory.getFragmentByTag(Constant.TAG_ZHIHU_FRAGMENT);
+    private ProgressDialog mProgressDialog;
 
     /**
      * 添加或显示Fragment
@@ -31,4 +33,15 @@ public class BaseActivity extends AppCompatActivity {
         currentFragment= (BaseFragment) fragment;
     }
 
+    public void showProgressDialog(String content) {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+        }
+        mProgressDialog.setMessage(content);
+        mProgressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        mProgressDialog.dismiss();
+    }
 }

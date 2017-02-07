@@ -1,10 +1,8 @@
 package com.shizhen5452.justlook.presenter.presenterimpl;
 
 import com.shizhen5452.justlook.api.ApiManager;
-import com.shizhen5452.justlook.application.MyApplication;
 import com.shizhen5452.justlook.bean.ZhihuDaliyBean;
 import com.shizhen5452.justlook.presenter.ZhihuDaliyPresenter;
-import com.shizhen5452.justlook.utils.ToastUtils;
 import com.shizhen5452.justlook.view.ZhihuDaliyView;
 
 import retrofit2.Call;
@@ -31,13 +29,13 @@ public class ZhihuDaliyPresenterImpl implements ZhihuDaliyPresenter {
                     ZhihuDaliyBean zhihuDaliyBean = response.body();
                     mZhihuDaliyView.onInitZhihu(zhihuDaliyBean);
                 } else {
-                    ToastUtils.showShortToast(MyApplication.getContext(),"网络数据异常");
+                    mZhihuDaliyView.onError();
                 }
             }
 
             @Override
             public void onFailure(Call<ZhihuDaliyBean> call, Throwable t) {
-                ToastUtils.showShortToast(MyApplication.getContext(),"访问网络异常");
+                mZhihuDaliyView.onError();
             }
         });
     }

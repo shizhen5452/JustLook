@@ -23,6 +23,7 @@ import com.shizhen5452.justlook.bean.ZhihuDaliyBean;
 import com.shizhen5452.justlook.presenter.ZhihuDaliyPresenter;
 import com.shizhen5452.justlook.presenter.presenterimpl.ZhihuDaliyPresenterImpl;
 import com.shizhen5452.justlook.utils.Constant;
+import com.shizhen5452.justlook.utils.ToastUtils;
 import com.shizhen5452.justlook.view.ZhihuDaliyView;
 
 import java.util.ArrayList;
@@ -89,6 +90,11 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
         mZhihuDaliyAdapter = new ZhihuDaliyAdapter(zhihuDaliyBean.getDate(), zhihuDaliyBean.getStories());
         mZhihuDaliyAdapter.setOnZhihuItemClickListener(this);
         mRvZhihu.setAdapter(mZhihuDaliyAdapter);
+    }
+
+    @Override
+    public void onError() {
+        ToastUtils.showShortToast(getActivity(),getResources().getString(R.string.access_net_fail));
     }
 
     /**

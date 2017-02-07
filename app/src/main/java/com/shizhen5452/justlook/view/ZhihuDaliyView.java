@@ -8,4 +8,5 @@ import com.shizhen5452.justlook.bean.ZhihuDaliyBean;
 
 public interface ZhihuDaliyView {
     void onInitZhihu(ZhihuDaliyBean zhihuDaliyBean);
+    void onError();
 }

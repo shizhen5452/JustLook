@@ -11,4 +11,8 @@
     <string name="open">open</string>
     <string name="close">close</string>
 
+    <string name="loading">"正在努力加载中..."</string>
+    <string name="access_net_fail">"访问网络异常"</string>
+    <string name="net_data_exception">"网络数据异常"</string>
+
 </resources>

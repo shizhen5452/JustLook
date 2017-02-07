@@ -30,7 +30,7 @@ public class ZhihuDetailBean {
     private String       share_url;
     private String       title;
     private int          type;
-    private List<String> css;
+    private String[] css;
     private List<String> images;
     private List<?>      js;
 
@@ -98,11 +98,11 @@ public class ZhihuDetailBean {
         this.type = type;
     }
 
-    public List<String> getCss() {
+    public String[] getCss() {
         return css;
     }
 
-    public void setCss(List<String> css) {
+    public void setCss(String[] css) {
         this.css = css;
     }
 

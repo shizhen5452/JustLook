@@ -24,13 +24,10 @@ public abstract class BaseFragment extends Fragment {
         View view = inflater.inflate(setLayoutResId(), container, false);
         bind = ButterKnife.bind(this, view);
         initView();
-        initToolbar();
         initListener();
         initData();
         return view;
     }
-
-    protected abstract void initToolbar();
 
     protected abstract int setLayoutResId();
 

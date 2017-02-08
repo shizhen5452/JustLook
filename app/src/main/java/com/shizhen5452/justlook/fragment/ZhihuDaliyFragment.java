@@ -7,7 +7,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -16,7 +15,6 @@ import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.bumptech.glide.Glide;
 import com.shizhen5452.justlook.R;
-import com.shizhen5452.justlook.activity.MainActivity;
 import com.shizhen5452.justlook.activity.ZhihuDetailActivity;
 import com.shizhen5452.justlook.adapter.ZhihuDaliyAdapter;
 import com.shizhen5452.justlook.bean.ZhihuDaliyBean;
@@ -39,8 +37,6 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
     SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.convenientBanner)
     ConvenientBanner   mConvenientBanner;
-    @BindView(R.id.toolbar)
-    Toolbar            mToolbar;
     @BindView(R.id.appBarLayout)
     AppBarLayout       mAppBarLayout;
     private ZhihuDaliyPresenter mZhihuDaliyPresenter;
@@ -55,15 +51,10 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
     }
 
     @Override
-    protected void initToolbar() {
-        String zhihuTitle = getResources().getString(R.string.zhihu_daliy);
-        ((MainActivity) getActivity()).initToolbar(mToolbar,zhihuTitle);
-    }
-
-    @Override
     protected void initView() {
+
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorAccent));
-        mSwipeRefreshLayout.setRefreshing(true);
+
         mConvenientBanner.startTurning(4000);
     }
 
@@ -115,6 +106,7 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
     @Override
     public void onError() {
         ToastUtils.showShortToast(getActivity(),getResources().getString(R.string.access_net_fail));
+
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.shizhen5452.justlook.api;
 
+import com.shizhen5452.justlook.bean.ImageResponseBean;
 import com.shizhen5452.justlook.bean.ZhihuDaliyBean;
 import com.shizhen5452.justlook.bean.ZhihuDetailBean;
 
@@ -20,4 +21,7 @@ public interface ZhihuApi {
 
     @GET("news/before/{date}")
     Call<ZhihuDaliyBean> getBeforeDetail(@Path("date") String date);
+
+    @GET("http://lab.zuimeia.com/wallpaper/category/1/?page_size=1")
+    Call<ImageResponseBean> getImage();
 }

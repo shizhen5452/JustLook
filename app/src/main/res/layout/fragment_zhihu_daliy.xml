@@ -17,15 +17,6 @@
             android:layout_height="wrap_content"
             >
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/transparent"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark"
-                app:layout_scrollFlags="scroll"
-                />
-
             <com.bigkoo.convenientbanner.ConvenientBanner
                 android:id="@+id/convenientBanner"
                 android:layout_width="match_parent"

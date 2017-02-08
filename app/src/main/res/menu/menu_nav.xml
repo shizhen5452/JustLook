@@ -3,21 +3,27 @@
     <group android:id="@+id/group_1">
         <item
             android:id="@+id/zhihu"
-            android:title="@string/zhihu_daliy"/>
+            android:checked="true"
+            android:title="@string/zhihu_daliy"
+            android:icon="@mipmap/zhihu"/>
         <item
             android:id="@+id/netease"
-            android:title="@string/netease_news"/>
+            android:title="@string/netease_news"
+            android:icon="@mipmap/netease"/>
         <item
             android:id="@+id/gank"
-            android:title="@string/gank_io"/>
+            android:title="@string/gank_io"
+            android:icon="@mipmap/gank"/>
     </group>
 
     <group android:id="@+id/group_2">
         <item
             android:id="@+id/setting"
-            android:title="@string/setting"/>
+            android:title="@string/setting"
+            android:icon="@mipmap/setting"/>
         <item
             android:id="@+id/about"
-            android:title="@string/about"/>
+            android:title="@string/about"
+            android:icon="@mipmap/about"/>
     </group>
 </menu>

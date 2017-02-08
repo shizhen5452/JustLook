@@ -13,11 +13,6 @@ public class GankFragment extends BaseFragment {
     }
 
     @Override
-    protected void initToolbar() {
-
-    }
-
-    @Override
     protected void initView() {
 
     }

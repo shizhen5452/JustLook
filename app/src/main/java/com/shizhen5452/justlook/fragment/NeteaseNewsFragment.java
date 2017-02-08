@@ -13,11 +13,6 @@ public class NeteaseNewsFragment extends BaseFragment {
     }
 
     @Override
-    protected void initToolbar() {
-
-    }
-
-    @Override
     protected void initView() {
 
     }

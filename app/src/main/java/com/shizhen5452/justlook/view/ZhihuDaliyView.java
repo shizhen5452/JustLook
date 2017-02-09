@@ -9,7 +9,9 @@ import java.util.List;
  */
 
 public interface ZhihuDaliyView {
-    void onInitZhihu(ZhihuDaliyBean zhihuDaliyBean,List<ZhihuDaliyBean.StoriesBean> allStoriesBeanList);
+    void onInitZhihu(ZhihuDaliyBean zhihuDaliyBean);
     void onError();
     void onLoadMore(ZhihuDaliyBean zhihuDaliyBean);
+    void showProgressBar();
+    void hideProgressBar();
 }

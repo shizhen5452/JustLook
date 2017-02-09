@@ -1,13 +1,15 @@
 package com.shizhen5452.justlook.presenter.presenterimpl;
 
+import android.content.Context;
+
+import com.google.gson.Gson;
 import com.shizhen5452.justlook.api.ApiManager;
 import com.shizhen5452.justlook.bean.ZhihuDaliyBean;
+import com.shizhen5452.justlook.bean.ZhihuDaliyItemBean;
 import com.shizhen5452.justlook.presenter.ZhihuDaliyPresenter;
-import com.shizhen5452.justlook.utils.DateUtils;
+import com.shizhen5452.justlook.utils.CacheUtil;
+import com.shizhen5452.justlook.utils.Constant;
 import com.shizhen5452.justlook.view.ZhihuDaliyView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,46 +20,56 @@ import retrofit2.Response;
  */
 
 public class ZhihuDaliyPresenterImpl implements ZhihuDaliyPresenter {
+    private Context mContext;
     private ZhihuDaliyView mZhihuDaliyView;
-    private List<ZhihuDaliyBean.StoriesBean> mAllStoriesBeanList=new ArrayList<>();
+    private final CacheUtil mCacheUtil;
+    private Gson mGson=new Gson();
 
-    public ZhihuDaliyPresenterImpl(ZhihuDaliyView zhihuDaliyView) {
+    public ZhihuDaliyPresenterImpl(Context context, ZhihuDaliyView zhihuDaliyView) {
+        mContext=context;
         mZhihuDaliyView = zhihuDaliyView;
+        mCacheUtil = CacheUtil.get(context);
     }
 
     @Override
     public void initZhihu() {
+        mZhihuDaliyView.showProgressBar();
         ApiManager.getInstance().getZhihuApiService().getLastDaliy().enqueue(new Callback<ZhihuDaliyBean>() {
             @Override
             public void onResponse(Call<ZhihuDaliyBean> call, Response<ZhihuDaliyBean> response) {
                 if (response.isSuccessful()) {
                     ZhihuDaliyBean zhihuDaliyBean = response.body();
-                    List<ZhihuDaliyBean.StoriesBean> stories = zhihuDaliyBean.getStories();
-                    mAllStoriesBeanList.clear();
-                    mAllStoriesBeanList.addAll(stories);
-                    mZhihuDaliyView.onInitZhihu(zhihuDaliyBean,mAllStoriesBeanList);
+                    String date = zhihuDaliyBean.getDate();
+                    for (ZhihuDaliyItemBean zhihuDaliyItemBean : zhihuDaliyBean.getStories()) {
+                        zhihuDaliyItemBean.setDate(date);
+                    }
+                    mCacheUtil.put(Constant.ZHIHU,mGson.toJson(zhihuDaliyBean));
+                    mZhihuDaliyView.onInitZhihu(zhihuDaliyBean);
                 } else {
                     mZhihuDaliyView.onError();
                 }
+                mZhihuDaliyView.hideProgressBar();
             }
 
             @Override
             public void onFailure(Call<ZhihuDaliyBean> call, Throwable t) {
                 mZhihuDaliyView.onError();
+                mZhihuDaliyView.hideProgressBar();
             }
         });
     }
 
     @Override
     public void loadMore(String date) {
-        String beforeDate = DateUtils.getBeforeDate(date);
         ApiManager.getInstance().getZhihuApiService().getBeforeDetail(date).enqueue(new Callback<ZhihuDaliyBean>() {
             @Override
             public void onResponse(Call<ZhihuDaliyBean> call, Response<ZhihuDaliyBean> response) {
                 if (response.isSuccessful()) {
                     ZhihuDaliyBean zhihuDaliyBean = response.body();
-                    List<ZhihuDaliyBean.StoriesBean> stories = zhihuDaliyBean.getStories();
-                    mAllStoriesBeanList.addAll(stories);
+                    String date = zhihuDaliyBean.getDate();
+                    for (ZhihuDaliyItemBean zhihuDaliyItemBean : zhihuDaliyBean.getStories()) {
+                        zhihuDaliyItemBean.setDate(date);
+                    }
                     mZhihuDaliyView.onLoadMore(zhihuDaliyBean);
                 } else {
                     mZhihuDaliyView.onError();
@@ -69,5 +81,11 @@ public class ZhihuDaliyPresenterImpl implements ZhihuDaliyPresenter {
                 mZhihuDaliyView.onError();
             }
         });
+    }
+
+    @Override
+    public void loadCache() {
+        ZhihuDaliyBean zhihuDaliyBean = mGson.fromJson(mCacheUtil.getAsJSONObject(Constant.ZHIHU).toString(), ZhihuDaliyBean.class);
+        mZhihuDaliyView.onInitZhihu(zhihuDaliyBean);
     }
 }

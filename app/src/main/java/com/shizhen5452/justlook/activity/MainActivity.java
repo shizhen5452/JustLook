@@ -156,4 +156,6 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
     public void onError() {
 
     }
+
+
 }

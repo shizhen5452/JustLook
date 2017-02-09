@@ -27,7 +27,7 @@ public class DateUtils {
         return month+"月"+day+"日 "+weeks[week_index];
     }
 
-    public static String getBeforeDate(String str) {
+    /*public static String getBeforeDate(String str) {
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         ParsePosition pos = new ParsePosition(0);
         Date date = format.parse(str,pos);
@@ -36,6 +36,6 @@ public class DateUtils {
         int day = calendar.get(Calendar.DATE);
         calendar.set(Calendar.DATE,day-1);
         return format.format(calendar.getTime());
-    }
+    }*/
 
 }

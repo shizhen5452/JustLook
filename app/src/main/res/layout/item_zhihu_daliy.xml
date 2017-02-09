@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:text="标题"
             android:textSize="18sp"
-            android:textStyle="bold"
+            android:textColor="@color/black"
             />
 
         <ImageView

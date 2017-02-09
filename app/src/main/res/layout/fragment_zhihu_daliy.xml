@@ -20,19 +20,40 @@
             <com.bigkoo.convenientbanner.ConvenientBanner
                 android:id="@+id/convenientBanner"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="280dp"
+                android:background="@color/white"
                 app:canLoop="true"
                 app:layout_scrollFlags="scroll"
                 />
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_zhihu"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_zhihu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                />
+
+            <ViewStub
+                android:id="@+id/stub_no_connection_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout="@layout/no_connection_text"/>
+
+        </FrameLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

@@ -15,9 +15,9 @@
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark"
             app:contentScrim="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark">
 
             <ImageView
                 android:id="@+id/iv_top"
@@ -48,5 +48,16 @@
             android:layout_height="wrap_content"/>
 
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:src="@mipmap/ic_favorite_white_48dp"
+        android:layout_gravity="end|bottom"
+        app:backgroundTint="@color/colorPrimary"
+        />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -99,10 +99,10 @@ public class ZhihuDaliyAdapter extends RecyclerView.Adapter{
 
     @Override
     public int getItemViewType(int position) {
-        if (position < mZhihuDaliyItemBeanList.size()&&mZhihuDaliyItemBeanList.size()>0) {
-            return TYPE_NORMAL;
+        if (position == mZhihuDaliyItemBeanList.size()) {
+            return TYPE_LOADING_MORE;
         }
-        return TYPE_LOADING_MORE;
+        return TYPE_NORMAL;
     }
 
 

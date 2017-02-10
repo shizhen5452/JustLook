@@ -10,9 +10,10 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_main"
-        android:layout_width="280dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        app:insetForeground="#00000000"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/menu_nav"/>
 </android.support.v4.widget.DrawerLayout>

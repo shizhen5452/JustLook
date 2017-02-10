@@ -9,8 +9,7 @@ import com.shizhen5452.justlook.utils.Constant;
 public class FragmentFactory {
 
     private static ZhihuDaliyFragment sZhihuDaliyFragment;
-    private static NeteaseNewsFragment sNeteaseNewsFragment;
-    private static GankFragment sGankFragment;
+    private static BookmarkFragment sBookmarkFragment;
 
     public static BaseFragment getFragmentByTag(String tag) {
         switch (tag) {
@@ -19,16 +18,11 @@ public class FragmentFactory {
                     sZhihuDaliyFragment = new ZhihuDaliyFragment();
                 }
                 return sZhihuDaliyFragment;
-            case Constant.TAG_NETEASE_FRAGMENT:
-                if (sNeteaseNewsFragment == null) {
-                    sNeteaseNewsFragment = new NeteaseNewsFragment();
+            case Constant.TAG_BOOKMARK_FRAGMENT:
+                if (sBookmarkFragment == null) {
+                    sBookmarkFragment = new BookmarkFragment();
                 }
-                return sNeteaseNewsFragment;
-            case Constant.TAG_GANK_FRAGMENT:
-                if (sGankFragment == null) {
-                    sGankFragment = new GankFragment();
-                }
-                return sGankFragment;
+                return sBookmarkFragment;
         }
         return null;
     }

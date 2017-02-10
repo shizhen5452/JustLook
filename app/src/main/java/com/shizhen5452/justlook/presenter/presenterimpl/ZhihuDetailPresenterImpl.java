@@ -1,5 +1,10 @@
 package com.shizhen5452.justlook.presenter.presenterimpl;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.webkit.WebView;
+
+import com.shizhen5452.justlook.activity.ZhihuDetailActivity;
 import com.shizhen5452.justlook.api.ApiManager;
 import com.shizhen5452.justlook.bean.ZhihuDetailBean;
 import com.shizhen5452.justlook.presenter.ZhihuDetailPresenter;
@@ -38,5 +43,10 @@ public class ZhihuDetailPresenterImpl implements ZhihuDetailPresenter {
                 mZhihuDetailView.onError();
             }
         });
+    }
+
+    @Override
+    public void openUrl(WebView view, String url) {
+        ((ZhihuDetailActivity) mZhihuDetailView).startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url)));
     }
 }

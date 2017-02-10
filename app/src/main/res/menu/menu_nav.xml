@@ -2,28 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:id="@+id/group_1">
         <item
-            android:id="@+id/zhihu"
+            android:id="@+id/zhihu_item"
             android:checked="true"
             android:title="@string/zhihu_daliy"
-            android:icon="@mipmap/zhihu"/>
+            android:icon="@mipmap/ic_list_black_48dp"/>
         <item
-            android:id="@+id/netease"
-            android:title="@string/netease_news"
-            android:icon="@mipmap/netease"/>
-        <item
-            android:id="@+id/gank"
-            android:title="@string/gank_io"
-            android:icon="@mipmap/gank"/>
+            android:id="@+id/bookmark_item"
+            android:title="@string/bookmark"
+            android:icon="@mipmap/ic_grade_black_48dp"/>
     </group>
 
     <group android:id="@+id/group_2">
         <item
-            android:id="@+id/setting"
-            android:title="@string/setting"
-            android:icon="@mipmap/setting"/>
+            android:id="@+id/theme_item"
+            android:title="@string/theme"
+            android:icon="@mipmap/ic_color_lens_black_48dp"/>
         <item
-            android:id="@+id/about"
-            android:title="@string/about"
-            android:icon="@mipmap/about"/>
+            android:id="@+id/setting_item"
+            android:title="@string/setting"
+            android:icon="@mipmap/ic_settings_black_48dp"/>
     </group>
 </menu>

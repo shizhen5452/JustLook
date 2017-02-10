@@ -14,9 +14,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.shizhen5452.justlook.R;
+import com.shizhen5452.justlook.fragment.BookmarkFragment;
 import com.shizhen5452.justlook.fragment.FragmentFactory;
-import com.shizhen5452.justlook.fragment.GankFragment;
-import com.shizhen5452.justlook.fragment.NeteaseNewsFragment;
 import com.shizhen5452.justlook.fragment.ZhihuDaliyFragment;
 import com.shizhen5452.justlook.presenter.MainPresenter;
 import com.shizhen5452.justlook.presenter.presenterimpl.MainPresenterImpl;
@@ -43,9 +42,8 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
     private FragmentManager mFragmentManager;
     private MainPresenter   mMainPresenter;
     private ZhihuDaliyFragment mZhihuDaliyFragment;
-    private NeteaseNewsFragment mNeteaseNewsFragment;
-    private GankFragment mGankFragment;
     private MenuItem currentItem;
+    private BookmarkFragment mBookmarkFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +70,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
 
     private void initView() {
         mZhihuDaliyFragment = (ZhihuDaliyFragment) FragmentFactory.getFragmentByTag(Constant.TAG_ZHIHU_FRAGMENT);
-        mNeteaseNewsFragment = (NeteaseNewsFragment) FragmentFactory.getFragmentByTag(Constant.TAG_NETEASE_FRAGMENT);
-        mGankFragment = (GankFragment) FragmentFactory.getFragmentByTag(Constant.TAG_GANK_FRAGMENT);
+        mBookmarkFragment = (BookmarkFragment) FragmentFactory.getFragmentByTag(Constant.TAG_BOOKMARK_FRAGMENT);
 
         //默认显示知乎日报界面
         if (mFragmentManager == null) {
@@ -85,8 +82,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
         mMainPresenter = new MainPresenterImpl(this);
         mMainPresenter.getNavHeaderBackground();
 
-        currentItem=mNavMain.getMenu().findItem(R.id.zhihu);
-
+        currentItem=mNavMain.getMenu().findItem(R.id.zhihu_item);
     }
 
     private void initData() {
@@ -100,36 +96,24 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        mDlMain.closeDrawers();
         switch (item.getItemId()) {
-            case R.id.zhihu:
-                mDlMain.closeDrawers();
+            case R.id.zhihu_item:
                 addOrShowFragment(mFragmentManager.beginTransaction(), mZhihuDaliyFragment);
                 mToolbar.setTitle(R.string.zhihu_daliy);
-                setMenuItemState(item);
                 break;
-            case R.id.netease:
-                mDlMain.closeDrawers();
-                addOrShowFragment(mFragmentManager.beginTransaction(), mNeteaseNewsFragment);
-                mToolbar.setTitle(R.string.netease_news);
-                setMenuItemState(item);
+            case R.id.bookmark_item:
+                addOrShowFragment(mFragmentManager.beginTransaction(), mBookmarkFragment);
+                mToolbar.setTitle(R.string.bookmark);
                 break;
-            case R.id.gank:
-                mDlMain.closeDrawers();
-                addOrShowFragment(mFragmentManager.beginTransaction(), mGankFragment);
-                mToolbar.setTitle(R.string.gank_io);
-                setMenuItemState(item);
+            case R.id.theme_item:
+                ToastUtils.showShortToast(this, "主题");
                 break;
-            case R.id.setting:
-                mDlMain.closeDrawers();
+            case R.id.setting_item:
                 ToastUtils.showShortToast(this, "设置");
-                setMenuItemState(item);
-                break;
-            case R.id.about:
-                mDlMain.closeDrawers();
-                ToastUtils.showShortToast(this, "关于");
-                setMenuItemState(item);
                 break;
         }
+        setMenuItemState(item);
         return true;
     }
 

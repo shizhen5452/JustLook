@@ -3,13 +3,13 @@ package com.shizhen5452.justlook.fragment;
 import com.shizhen5452.justlook.R;
 
 /**
- * Create by EminemShi on 2017/2/6
+ * Create by EminemShi on 2017/2/10
  */
 
-public class NeteaseNewsFragment extends BaseFragment {
+public class BookmarkFragment extends BaseFragment {
     @Override
     protected int setLayoutResId() {
-        return R.layout.fragment_netease_news;
+        return R.layout.fragment_bookmark;
     }
 
     @Override

@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
@@ -43,8 +42,6 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
     ConvenientBanner   mConvenientBanner;
     @BindView(R.id.appBarLayout)
     AppBarLayout       mAppBarLayout;
-    @BindView(R.id.progressbar)
-    ProgressBar        mProgressbar;
     @BindView(R.id.stub_no_connection_text)
     ViewStub           mStubNoConnectionText;
     private ZhihuDaliyPresenter mZhihuDaliyPresenter;
@@ -172,16 +169,29 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
 
     @Override
     public void showProgressBar() {
-        if (mProgressbar != null&&!mSwipeRefreshLayout.isRefreshing()) {
+        /*if (mProgressbar != null&&!mSwipeRefreshLayout.isRefreshing()) {
             mProgressbar.setVisibility(View.VISIBLE);
-        }
+        }*/
+
+        mSwipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(true);
+            }
+        });
     }
 
     @Override
     public void hideProgressBar() {
-        if (mProgressbar != null) {
+        /*if (mProgressbar != null) {
             mProgressbar.setVisibility(View.GONE);
-        }
+        }*/
+        mSwipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     /**

@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Create by EminemShi on 2017/2/9
  */
@@ -15,7 +18,7 @@ public class DBUtils {
     private SQLiteDatabase mIsreadDb;
     private SQLiteDatabase mZhihuDB;
 
-    public DBUtils(Context context) {
+    private DBUtils(Context context) {
         mIsreadDb = new IsReadDBHelper(context).getWritableDatabase();
         mZhihuDB = new ZhihuDBHelper(context).getWritableDatabase();
     }
@@ -70,4 +73,13 @@ public class DBUtils {
         return isBookmarked;
     }
 
+    public List<String> getAllIsBookmark(String table) {
+        List<String> list=new ArrayList<>();
+        Cursor cursor = mZhihuDB.query(table, null, null, null, null, null, null);
+        while (cursor.moveToNext()) {
+            list.add(cursor.getString(cursor.getColumnIndex("key")));
+        }
+        cursor.close();
+        return list;
+    }
 }

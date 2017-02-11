@@ -20,7 +20,7 @@
             <com.bigkoo.convenientbanner.ConvenientBanner
                 android:id="@+id/convenientBanner"
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
+                android:layout_height="240dp"
                 android:background="@color/white"
                 app:canLoop="true"
                 app:layout_scrollFlags="scroll"
@@ -37,13 +37,6 @@
                 android:id="@+id/rv_zhihu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                />
-
-            <ProgressBar
-                android:id="@+id/progressbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
                 />
 
             <ViewStub

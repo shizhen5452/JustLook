@@ -11,4 +11,5 @@ public class Constant {
     public static final String IS_READ_DB_NAME       = "isread.db";
     public static final String ZHIHU                 = "zhihu";
     public static final String ZHIHU_DB_NAME         = "zhihu.db";
+    public static final Object BOOKMARK_DB_CHANGED   = "bookmark_db_changed";
 }

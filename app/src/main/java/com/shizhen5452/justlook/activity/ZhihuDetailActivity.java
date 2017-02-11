@@ -26,6 +26,8 @@ import com.shizhen5452.justlook.utils.ToastUtils;
 import com.shizhen5452.justlook.utils.WebUtil;
 import com.shizhen5452.justlook.view.ZhihuDetailView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -157,6 +159,7 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailView
             mWv.destroy();
             mWv = null;
         }
+        EventBus.getDefault().post(Constant.BOOKMARK_DB_CHANGED);
     }
 
     @Override

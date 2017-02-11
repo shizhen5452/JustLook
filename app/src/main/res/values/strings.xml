@@ -14,5 +14,6 @@
     <string name="access_net_fail">"访问网络异常"</string>
     <string name="net_data_exception">"网络数据异常"</string>
     <string name="no_connection">无网络</string>
+    <string name="exit">再按一次退出</string>
 
 </resources>

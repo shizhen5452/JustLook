@@ -44,6 +44,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
     private ZhihuDaliyFragment mZhihuDaliyFragment;
     private MenuItem currentItem;
     private BookmarkFragment mBookmarkFragment;
+    private long lastTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
     }
 
     public void initToolbar() {
+//        StatusBarUtils.setTranslucentImageHeader(this,0,mToolbar);
         setSupportActionBar(mToolbar);
 
         //显示Toolbar左侧菜单并设置点击事件
@@ -141,5 +143,13 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis()- lastTime > 2000) {
+            lastTime = System.currentTimeMillis();
+            ToastUtils.showShortToast(this, getResources().getString(R.string.exit));
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

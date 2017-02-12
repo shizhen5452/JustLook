@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.shizhen5452.justlook.R;
 import com.shizhen5452.justlook.bean.ZhihuDetailBean;
-import com.shizhen5452.justlook.db.DBUtils;
+import com.shizhen5452.justlook.utils.DBUtils;
 import com.shizhen5452.justlook.presenter.ZhihuDetailPresenter;
 import com.shizhen5452.justlook.presenter.presenterimpl.ZhihuDetailPresenterImpl;
 import com.shizhen5452.justlook.utils.Constant;

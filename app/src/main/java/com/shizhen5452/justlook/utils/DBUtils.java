@@ -1,9 +1,12 @@
-package com.shizhen5452.justlook.db;
+package com.shizhen5452.justlook.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.shizhen5452.justlook.db.IsReadDBHelper;
+import com.shizhen5452.justlook.db.ZhihuDBHelper;
 
 import java.util.ArrayList;
 import java.util.List;

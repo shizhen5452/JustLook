@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import com.shizhen5452.justlook.R;
 import com.shizhen5452.justlook.activity.ZhihuDetailActivity;
 import com.shizhen5452.justlook.bean.ZhihuDaliyItemBean;
-import com.shizhen5452.justlook.db.DBUtils;
+import com.shizhen5452.justlook.utils.DBUtils;
 import com.shizhen5452.justlook.utils.Constant;
 import com.shizhen5452.justlook.viewholder.LoadingMoreViewHolder;
 import com.shizhen5452.justlook.viewholder.ZhihuDaliyViewHolder;

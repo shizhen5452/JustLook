@@ -15,7 +15,7 @@
             android:id="@+id/collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentScrim="@color/colorPrimary"
+            app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:theme="@style/ThemeOverlay.AppCompat.Dark"
             >
@@ -58,7 +58,8 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:src="@mipmap/ic_favorite_white_48dp"
         android:layout_gravity="end|bottom"
-        app:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="?attr/colorPrimary"
+        app:layout_behavior="com.shizhen5452.justlook.widget.ScrollBehavior"
         />
 
 </android.support.design.widget.CoordinatorLayout>

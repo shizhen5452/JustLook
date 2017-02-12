@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.shizhen5452.justlook.api.ApiManager;
 import com.shizhen5452.justlook.bean.ZhihuDetailBean;
-import com.shizhen5452.justlook.db.DBUtils;
+import com.shizhen5452.justlook.utils.DBUtils;
 import com.shizhen5452.justlook.presenter.BookmarkPresenter;
 import com.shizhen5452.justlook.utils.Constant;
 import com.shizhen5452.justlook.view.BookmarkView;

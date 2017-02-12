@@ -7,22 +7,32 @@ import com.shizhen5452.justlook.utils.Constant;
  */
 
 public class FragmentFactory {
+    private FragmentFactory() {
+    }
 
-    private static ZhihuDaliyFragment sZhihuDaliyFragment;
-    private static BookmarkFragment sBookmarkFragment;
+    private static FragmentFactory    sFragmentFactory;
+    private        ZhihuDaliyFragment zhihuDaliyFragment;
+    private        BookmarkFragment   bookmarkFragment;
 
-    public static BaseFragment getFragmentByTag(String tag) {
+    public static FragmentFactory getInstance() {
+        if (sFragmentFactory == null) {
+            sFragmentFactory = new FragmentFactory();
+        }
+        return sFragmentFactory;
+    }
+
+    public BaseFragment getFragmentByTag(String tag) {
         switch (tag) {
             case Constant.TAG_ZHIHU_FRAGMENT:
-                if (sZhihuDaliyFragment == null) {
-                    sZhihuDaliyFragment = new ZhihuDaliyFragment();
+                if (zhihuDaliyFragment == null) {
+                    zhihuDaliyFragment = new ZhihuDaliyFragment();
                 }
-                return sZhihuDaliyFragment;
+                return zhihuDaliyFragment;
             case Constant.TAG_BOOKMARK_FRAGMENT:
-                if (sBookmarkFragment == null) {
-                    sBookmarkFragment = new BookmarkFragment();
+                if (bookmarkFragment == null) {
+                    bookmarkFragment = new BookmarkFragment();
                 }
-                return sBookmarkFragment;
+                return bookmarkFragment;
         }
         return null;
     }

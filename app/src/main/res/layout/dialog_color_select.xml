@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.shizhen5452.justlook.widget.FlowRadioGroup
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/flowRadioGroup"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    >
+
+    <RadioButton
+        android:id="@+id/rb_teal"
+        style="@style/ColorSelectRadioButton"
+        android:background="@drawable/selector_teal"
+        />
+    <RadioButton
+        android:id="@+id/rb_red"
+        style="@style/ColorSelectRadioButton"
+        android:background="@drawable/selector_red"
+        />
+    <RadioButton
+        android:id="@+id/rb_purple"
+        style="@style/ColorSelectRadioButton"
+        android:background="@drawable/selector_purple"
+        />
+    <RadioButton
+        android:id="@+id/rb_blue"
+        style="@style/ColorSelectRadioButton"
+        android:background="@drawable/selector_blue"
+        />
+    <RadioButton
+        android:id="@+id/rb_green"
+        style="@style/ColorSelectRadioButton"
+        android:background="@drawable/selector_green"
+        />
+    <RadioButton
+        android:id="@+id/rb_orange"
+        style="@style/ColorSelectRadioButton"
+        android:background="@drawable/selector_orange"
+        />
+    <RadioButton
+        android:id="@+id/rb_brown"
+        style="@style/ColorSelectRadioButton"
+        android:background="@drawable/selector_brown"
+        />
+    <RadioButton
+        android:id="@+id/rb_grey"
+        style="@style/ColorSelectRadioButton"
+        android:background="@drawable/selector_grey"
+        />
+    <RadioButton
+        android:id="@+id/rb_black"
+        style="@style/ColorSelectRadioButton"
+        android:background="@drawable/selector_black"
+        />
+
+</com.shizhen5452.justlook.widget.FlowRadioGroup>

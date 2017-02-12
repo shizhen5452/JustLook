@@ -32,6 +32,7 @@ public class BookmarkPresenterImpl implements BookmarkPresenter {
 
     @Override
     public void loadData() {
+        mBookmarkView.showProgressBar();
         mZhihuDetailBeanList.clear();
         List<String> allIsBookmark = DBUtils.getDB(mContext).getAllIsBookmark(Constant.ZHIHU);
         if (allIsBookmark != null && allIsBookmark.size() > 0) {
@@ -46,14 +47,19 @@ public class BookmarkPresenterImpl implements BookmarkPresenter {
                         } else {
                             mBookmarkView.onError();
                         }
+                        mBookmarkView.hideProgressBar();
                     }
 
                     @Override
                     public void onFailure(Call<ZhihuDetailBean> call, Throwable t) {
                         mBookmarkView.onError();
+                        mBookmarkView.hideProgressBar();
                     }
                 });
             }
+        } else {
+            mBookmarkView.onNoBookMark();
+            mBookmarkView.hideProgressBar();
         }
     }
 }

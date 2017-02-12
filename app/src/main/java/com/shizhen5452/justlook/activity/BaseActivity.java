@@ -15,7 +15,7 @@ import com.shizhen5452.justlook.utils.Constant;
  */
 
 public class BaseActivity extends AppCompatActivity {
-    protected BaseFragment currentFragment= FragmentFactory.getFragmentByTag(Constant.TAG_ZHIHU_FRAGMENT);
+    protected BaseFragment currentFragment= FragmentFactory.getInstance().getFragmentByTag(Constant.TAG_ZHIHU_FRAGMENT);
     private ProgressDialog mProgressDialog;
 
     /**

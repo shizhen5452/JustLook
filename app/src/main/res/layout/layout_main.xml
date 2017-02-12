@@ -11,9 +11,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark"
+        android:background="?attr/colorPrimary"
         app:title="@string/zhihu_daliy"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark"
         />
     <FrameLayout
         android:id="@+id/fl_main"

@@ -11,4 +11,7 @@ import java.util.List;
 public interface BookmarkView {
     void onError();
     void onLoadData(List<ZhihuDetailBean> zhihuDetailBeanList);
+    void onNoBookMark();
+    void showProgressBar();
+    void hideProgressBar();
 }

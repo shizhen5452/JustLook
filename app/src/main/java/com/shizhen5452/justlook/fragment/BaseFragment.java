@@ -44,15 +44,4 @@ public abstract class BaseFragment extends Fragment {
         bind.unbind();
     }
 
-    public void showProgressDialog(String content) {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(getActivity());
-        }
-        mProgressDialog.setMessage(content);
-        mProgressDialog.show();
-    }
-
-    public void hideProgressDialog() {
-        mProgressDialog.dismiss();
-    }
 }

@@ -12,4 +12,6 @@ public class Constant {
     public static final String ZHIHU                 = "zhihu";
     public static final String ZHIHU_DB_NAME         = "zhihu.db";
     public static final Object BOOKMARK_DB_CHANGED   = "bookmark_db_changed";
+    public static final String SP_NAME_THEME         = "sp_name_theme";
+    public static final String SP_KEY_THEME_ID       = "sp_key_theme_id";
 }

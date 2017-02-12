@@ -21,6 +21,7 @@ import com.shizhen5452.justlook.db.DBUtils;
 import com.shizhen5452.justlook.presenter.ZhihuDetailPresenter;
 import com.shizhen5452.justlook.presenter.presenterimpl.ZhihuDetailPresenterImpl;
 import com.shizhen5452.justlook.utils.Constant;
+import com.shizhen5452.justlook.utils.SPUtils;
 import com.shizhen5452.justlook.utils.StatusBarUtils;
 import com.shizhen5452.justlook.utils.ToastUtils;
 import com.shizhen5452.justlook.utils.WebUtil;
@@ -56,6 +57,10 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        int themeId = SPUtils.getInstance(this).getThemeId(Constant.SP_KEY_THEME_ID, -1);
+        if (themeId != -1) {
+            setTheme(themeId);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zhihu_detail);
         ButterKnife.bind(this);

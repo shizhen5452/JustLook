@@ -63,7 +63,7 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
     @Override
     protected void initView() {
         mSwipeRefreshLayout.setProgressViewOffset(true, 0, 300);
-        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorAccent));
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.md_blue_500), getResources().getColor(R.color.md_green_500));
         mConvenientBanner.startTurning(4000);
         mZhihuDaliyAdapter = new ZhihuDaliyAdapter(getContext());
         mZhihuDaliyPresenter = new ZhihuDaliyPresenterImpl(getContext(), this);
@@ -169,10 +169,6 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
 
     @Override
     public void showProgressBar() {
-        /*if (mProgressbar != null&&!mSwipeRefreshLayout.isRefreshing()) {
-            mProgressbar.setVisibility(View.VISIBLE);
-        }*/
-
         mSwipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -183,9 +179,6 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
 
     @Override
     public void hideProgressBar() {
-        /*if (mProgressbar != null) {
-            mProgressbar.setVisibility(View.GONE);
-        }*/
         mSwipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {

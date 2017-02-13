@@ -5,6 +5,7 @@
     <string name="bookmark">收藏</string>
     <string name="theme">主题</string>
     <string name="setting">设置</string>
+    <string name="about">关于</string>
 
     <!--设置Toolbar左侧菜单所需参数-->
     <string name="open">open</string>
@@ -15,5 +16,17 @@
     <string name="net_data_exception">"网络数据异常"</string>
     <string name="no_connection">无网络</string>
     <string name="exit">再按一次退出</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="author">作者</string>
+    <string name="version">版本:V1.0</string>
+    <string name="me">与神跳舞</string>
+    <string name="location">上海</string>
+    <string name="github">GitHub</string>
+    <string name="me_github">https://github.com/shizhen5452</string>
+    <string name="me_blog">http://blog.csdn.net/guasz</string>
+    <string name="blog">博客</string>
+    <string name="me_email">shizhen5452@gmail.com</string>
+    <string name="email">邮箱</string>
 
 </resources>

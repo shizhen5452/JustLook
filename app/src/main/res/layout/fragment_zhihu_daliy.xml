@@ -39,12 +39,16 @@
                 android:layout_height="match_parent"
                 />
 
-            <ViewStub
-                android:id="@+id/stub_no_connection_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout="@layout/no_connection_text"/>
+            <TextView
+                android:id="@+id/tv_no_connection_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_connection"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="150dp"
+                android:visibility="gone"
+                >
+            </TextView>
 
         </FrameLayout>
 

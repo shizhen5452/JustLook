@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 
 import com.shizhen5452.justlook.R;
+import com.shizhen5452.justlook.fragment.AboutFragment;
 import com.shizhen5452.justlook.fragment.BookmarkFragment;
 import com.shizhen5452.justlook.fragment.FragmentFactory;
 import com.shizhen5452.justlook.fragment.ZhihuDaliyFragment;
@@ -29,7 +30,6 @@ import com.shizhen5452.justlook.utils.Constant;
 import com.shizhen5452.justlook.utils.SPUtils;
 import com.shizhen5452.justlook.utils.ToastUtils;
 import com.shizhen5452.justlook.view.MainView;
-import com.shizhen5452.justlook.widget.FlowRadioGroup;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -58,6 +58,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
     private List<RadioButton> mRadioButtonList=new ArrayList<>();
     private int[] mThemes={R.style.TealTheme,R.style.RedTheme,R.style.PurpleTheme,R.style.BlueTheme,R.style.GreenTheme,R.style.OrangeTheme,R.style.BrownTheme,R.style.GreyTheme,R.style.BlackTheme};
     private int mThemeId;
+    private AboutFragment mAboutFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
 
     public void initToolbar() {
         setSupportActionBar(mToolbar);
+        mToolbar.setPadding(0,getStatusBarHeight(),0,0);
 
         //显示Toolbar左侧菜单并设置点击事件
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDlMain, mToolbar, R.string.open, R.string.close);
@@ -84,9 +86,19 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
         mDlMain.addDrawerListener(drawerToggle);
     }
 
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
     private void initView() {
         mZhihuDaliyFragment = (ZhihuDaliyFragment) FragmentFactory.getInstance().getFragmentByTag(Constant.TAG_ZHIHU_FRAGMENT);
         mBookmarkFragment = (BookmarkFragment) FragmentFactory.getInstance().getFragmentByTag(Constant.TAG_BOOKMARK_FRAGMENT);
+        mAboutFragment = (AboutFragment) FragmentFactory.getInstance().getFragmentByTag(Constant.TAG_ABOUT_FRAGMENT);
 
         //默认显示知乎日报界面
         if (mFragmentManager == null) {
@@ -128,7 +140,12 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
                 showColorSelectDialog();
                 break;
             case R.id.setting_item:
-                ToastUtils.showShortToast(this, "设置");
+                ToastUtils.showShortToast(this,"暂未开通，敬请期待");
+                break;
+            case R.id.about_item:
+                addOrShowFragment(mFragmentManager.beginTransaction(), mAboutFragment);
+                mToolbar.setTitle(R.string.about);
+                setMenuItemState(item);
                 break;
         }
         return true;
@@ -139,7 +156,6 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
         mRadioButtonList.clear();
 
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_color_select, null);
-        FlowRadioGroup flowRadioGroup = (FlowRadioGroup) view.findViewById(R.id.flowRadioGroup);
 
         RadioButton rbTeal= (RadioButton) view.findViewById(R.id.rb_teal);
         RadioButton rbRed= (RadioButton) view.findViewById(R.id.rb_red);

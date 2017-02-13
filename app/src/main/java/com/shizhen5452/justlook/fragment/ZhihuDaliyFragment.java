@@ -8,8 +8,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
@@ -42,8 +42,8 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
     ConvenientBanner   mConvenientBanner;
     @BindView(R.id.appBarLayout)
     AppBarLayout       mAppBarLayout;
-    @BindView(R.id.stub_no_connection_text)
-    ViewStub           mStubNoConnectionText;
+    @BindView(R.id.tv_no_connection_text)
+    TextView           mTvNoConnectionText;
     private ZhihuDaliyPresenter mZhihuDaliyPresenter;
     private List<String> mImageList = new ArrayList<>();
     private ZhihuDaliyAdapter             mZhihuDaliyAdapter;
@@ -52,8 +52,8 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
     private boolean                       isLoadingMore;
     private String                        mCurrentLoadDate;
     private int                           preTotalItemCount;
-    private List<ZhihuTopStoriesBean> mTop_stories;
-    private CacheUtil mCacheUtil;
+    private List<ZhihuTopStoriesBean>     mTop_stories;
+    private CacheUtil                     mCacheUtil;
 
     @Override
     protected int setLayoutResId() {
@@ -113,7 +113,7 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
                 mZhihuDaliyPresenter.loadCache();
                 onError();
             } else {
-                mStubNoConnectionText.inflate();
+                mTvNoConnectionText.setVisibility(View.VISIBLE);
             }
         } else {
             loadData();
@@ -213,6 +213,7 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
             mSwipeRefreshLayout.setRefreshing(false);
             return;
         } else {
+            mTvNoConnectionText.setVisibility(View.GONE);
             loadData();
         }
     }
@@ -237,7 +238,7 @@ public class ZhihuDaliyFragment extends BaseFragment implements ZhihuDaliyView, 
                     for (ZhihuTopStoriesBean top_story : mTop_stories) {
                         if (top_story.getImage().equals(data)) {
                             Intent intent = new Intent(getActivity(), ZhihuDetailActivity.class);
-                            intent.putExtra(Constant.ZHIHU_DALIY_ID,top_story.getId());
+                            intent.putExtra(Constant.ZHIHU_DALIY_ID, top_story.getId());
                             startActivity(intent);
                         }
                     }

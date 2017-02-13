@@ -11,8 +11,9 @@ public class FragmentFactory {
     }
 
     private static FragmentFactory    sFragmentFactory;
-    private        ZhihuDaliyFragment zhihuDaliyFragment;
-    private        BookmarkFragment   bookmarkFragment;
+    private        ZhihuDaliyFragment mZhihuDaliyFragment;
+    private        BookmarkFragment   mBookmarkFragment;
+    private        AboutFragment      mAboutFragment;
 
     public static FragmentFactory getInstance() {
         if (sFragmentFactory == null) {
@@ -24,15 +25,20 @@ public class FragmentFactory {
     public BaseFragment getFragmentByTag(String tag) {
         switch (tag) {
             case Constant.TAG_ZHIHU_FRAGMENT:
-                if (zhihuDaliyFragment == null) {
-                    zhihuDaliyFragment = new ZhihuDaliyFragment();
+                if (mZhihuDaliyFragment == null) {
+                    mZhihuDaliyFragment = new ZhihuDaliyFragment();
                 }
-                return zhihuDaliyFragment;
+                return mZhihuDaliyFragment;
             case Constant.TAG_BOOKMARK_FRAGMENT:
-                if (bookmarkFragment == null) {
-                    bookmarkFragment = new BookmarkFragment();
+                if (mBookmarkFragment == null) {
+                    mBookmarkFragment = new BookmarkFragment();
                 }
-                return bookmarkFragment;
+                return mBookmarkFragment;
+            case Constant.TAG_ABOUT_FRAGMENT:
+                if (mAboutFragment == null) {
+                    mAboutFragment = new AboutFragment();
+                }
+                return mAboutFragment;
         }
         return null;
     }

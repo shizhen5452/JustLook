@@ -21,5 +21,9 @@
             android:id="@+id/setting_item"
             android:title="@string/setting"
             android:icon="@mipmap/ic_settings_black_48dp"/>
+        <item
+            android:id="@+id/about_item"
+            android:title="@string/about"
+            android:icon="@mipmap/ic_info_black_48dp"/>
     </group>
 </menu>

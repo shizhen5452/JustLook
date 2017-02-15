@@ -28,5 +28,7 @@
     <string name="blog">博客</string>
     <string name="me_email">shizhen5452@gmail.com</string>
     <string name="email">邮箱</string>
+    <string name="clear_cache">清理缓存</string>
+    <string name="current_cache">当前缓存</string>
 
 </resources>

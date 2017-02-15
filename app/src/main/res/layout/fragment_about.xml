@@ -6,113 +6,75 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ItemTitleStyle"
         android:text="@string/app_name"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:textSize="@dimen/tv_about_title_textsize"
-        android:textColor="?attr/colorPrimary"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/version"
-        android:textSize="16sp"
-        android:textColor="@color/md_black_1000"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
+        android:textColor="?attr/colorPrimary"
         />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/author"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:textSize="@dimen/tv_about_title_textsize"
-        android:textColor="?attr/colorPrimary"/>
+        style="@style/ItemTitleStyle"
+        android:text="@string/version"
+        android:textColor="@color/md_black_1000"
+        />
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ItemTitleStyle"
+        android:text="@string/author"
+        android:textColor="?attr/colorPrimary"
+        />
+
+    <TextView
+        style="@style/ItemTitleStyle"
         android:text="@string/me"
         android:textColor="@color/md_black_1000"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
         />
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ItemSummaryStyle"
         android:text="@string/location"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="5dp"/>
+        />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/md_grey_300"/>
+    <include layout="@layout/view_gap"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ItemTitleStyle"
         android:text="@string/github"
         android:textColor="@color/md_black_1000"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
         />
+
     <TextView
         android:id="@+id/tv_github"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/me_github"
+        style="@style/ItemSummaryStyle"
         android:autoLink="web"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="5dp"/>
+        android:text="@string/me_github"
+        />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/md_grey_300"/>
+    <include layout="@layout/view_gap"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ItemTitleStyle"
         android:text="@string/blog"
         android:textColor="@color/md_black_1000"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
         />
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/me_blog"
+        style="@style/ItemSummaryStyle"
         android:autoLink="web"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="5dp"/>
+        android:text="@string/me_blog"
+        />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/md_grey_300"/>
+    <include layout="@layout/view_gap"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ItemTitleStyle"
         android:text="@string/email"
         android:textColor="@color/md_black_1000"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
         />
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/me_email"
+        style="@style/ItemSummaryStyle"
         android:autoLink="email"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="5dp"/>
+        android:text="@string/me_email"
+        />
 
 </LinearLayout>

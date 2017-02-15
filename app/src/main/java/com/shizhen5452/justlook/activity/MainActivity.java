@@ -23,6 +23,7 @@ import com.shizhen5452.justlook.R;
 import com.shizhen5452.justlook.fragment.AboutFragment;
 import com.shizhen5452.justlook.fragment.BookmarkFragment;
 import com.shizhen5452.justlook.fragment.FragmentFactory;
+import com.shizhen5452.justlook.fragment.SettingFragment;
 import com.shizhen5452.justlook.fragment.ZhihuDaliyFragment;
 import com.shizhen5452.justlook.presenter.MainPresenter;
 import com.shizhen5452.justlook.presenter.presenterimpl.MainPresenterImpl;
@@ -49,16 +50,17 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
     NavigationView mNavMain;
     @BindView(R.id.toolbar)
     Toolbar        mToolbar;
-    private FragmentManager mFragmentManager;
-    private MainPresenter   mMainPresenter;
+    private FragmentManager    mFragmentManager;
+    private MainPresenter      mMainPresenter;
     private ZhihuDaliyFragment mZhihuDaliyFragment;
-    private MenuItem currentItem;
-    private BookmarkFragment mBookmarkFragment;
-    private long lastTime;
-    private List<RadioButton> mRadioButtonList=new ArrayList<>();
-    private int[] mThemes={R.style.TealTheme,R.style.RedTheme,R.style.PurpleTheme,R.style.BlueTheme,R.style.GreenTheme,R.style.OrangeTheme,R.style.BrownTheme,R.style.GreyTheme,R.style.BlackTheme};
-    private int mThemeId;
-    private AboutFragment mAboutFragment;
+    private MenuItem           currentItem;
+    private BookmarkFragment   mBookmarkFragment;
+    private long               lastTime;
+    private List<RadioButton> mRadioButtonList = new ArrayList<>();
+    private int[]             mThemes          = {R.style.TealTheme, R.style.RedTheme, R.style.PurpleTheme, R.style.BlueTheme, R.style.GreenTheme, R.style.OrangeTheme, R.style.BrownTheme, R.style.GreyTheme, R.style.BlackTheme};
+    private int             mThemeId;
+    private AboutFragment   mAboutFragment;
+    private SettingFragment mSettingFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +80,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
 
     public void initToolbar() {
         setSupportActionBar(mToolbar);
-        mToolbar.setPadding(0,getStatusBarHeight(),0,0);
+        mToolbar.setPadding(0, getStatusBarHeight(), 0, 0);
 
         //显示Toolbar左侧菜单并设置点击事件
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDlMain, mToolbar, R.string.open, R.string.close);
@@ -99,6 +101,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
         mZhihuDaliyFragment = (ZhihuDaliyFragment) FragmentFactory.getInstance().getFragmentByTag(Constant.TAG_ZHIHU_FRAGMENT);
         mBookmarkFragment = (BookmarkFragment) FragmentFactory.getInstance().getFragmentByTag(Constant.TAG_BOOKMARK_FRAGMENT);
         mAboutFragment = (AboutFragment) FragmentFactory.getInstance().getFragmentByTag(Constant.TAG_ABOUT_FRAGMENT);
+        mSettingFragment = (SettingFragment) FragmentFactory.getInstance().getFragmentByTag(Constant.TAG_SETTING_FRAGMENT);
 
         //默认显示知乎日报界面
         if (mFragmentManager == null) {
@@ -110,7 +113,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
         mMainPresenter = new MainPresenterImpl(this);
         mMainPresenter.getNavHeaderBackground();
 
-        currentItem=mNavMain.getMenu().findItem(R.id.zhihu_item);
+        currentItem = mNavMain.getMenu().findItem(R.id.zhihu_item);
     }
 
     private void initData() {
@@ -140,7 +143,9 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
                 showColorSelectDialog();
                 break;
             case R.id.setting_item:
-                ToastUtils.showShortToast(this,"暂未开通，敬请期待");
+                addOrShowFragment(mFragmentManager.beginTransaction(), mSettingFragment);
+                mToolbar.setTitle(R.string.setting);
+                setMenuItemState(item);
                 break;
             case R.id.about_item:
                 addOrShowFragment(mFragmentManager.beginTransaction(), mAboutFragment);
@@ -152,20 +157,20 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
     }
 
     private void showColorSelectDialog() {
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         mRadioButtonList.clear();
 
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_color_select, null);
 
-        RadioButton rbTeal= (RadioButton) view.findViewById(R.id.rb_teal);
-        RadioButton rbRed= (RadioButton) view.findViewById(R.id.rb_red);
-        RadioButton rbPurple= (RadioButton) view.findViewById(R.id.rb_purple);
-        RadioButton rbBlue= (RadioButton) view.findViewById(R.id.rb_blue);
-        RadioButton rbGreen= (RadioButton) view.findViewById(R.id.rb_green);
-        RadioButton rbOrange= (RadioButton) view.findViewById(R.id.rb_orange);
-        RadioButton rbBrown= (RadioButton) view.findViewById(R.id.rb_brown);
-        RadioButton rbGrey= (RadioButton) view.findViewById(R.id.rb_grey);
-        RadioButton rbBlack= (RadioButton) view.findViewById(R.id.rb_black);
+        RadioButton rbTeal = (RadioButton) view.findViewById(R.id.rb_teal);
+        RadioButton rbRed = (RadioButton) view.findViewById(R.id.rb_red);
+        RadioButton rbPurple = (RadioButton) view.findViewById(R.id.rb_purple);
+        RadioButton rbBlue = (RadioButton) view.findViewById(R.id.rb_blue);
+        RadioButton rbGreen = (RadioButton) view.findViewById(R.id.rb_green);
+        RadioButton rbOrange = (RadioButton) view.findViewById(R.id.rb_orange);
+        RadioButton rbBrown = (RadioButton) view.findViewById(R.id.rb_brown);
+        RadioButton rbGrey = (RadioButton) view.findViewById(R.id.rb_grey);
+        RadioButton rbBlack = (RadioButton) view.findViewById(R.id.rb_black);
 
         mRadioButtonList.add(rbTeal);
         mRadioButtonList.add(rbRed);
@@ -196,10 +201,10 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
                 dialog.dismiss();
                 for (int i = 0; i < mRadioButtonList.size(); i++) {
                     if (mRadioButtonList.get(i).isChecked()) {
-                        SPUtils.getInstance(MainActivity.this).putThemeId(Constant.SP_KEY_THEME_ID,mThemes[i]);
+                        SPUtils.getInstance(MainActivity.this).putThemeId(Constant.SP_KEY_THEME_ID, mThemes[i]);
                     }
                 }
-                ToastUtils.showShortToast(MainActivity.this,"重启应用后生效");
+                ToastUtils.showShortToast(MainActivity.this, "重启应用后生效");
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -214,7 +219,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
     private void setMenuItemState(MenuItem item) {
         if (currentItem != item) {
             currentItem.setChecked(false);
-            currentItem=item;
+            currentItem = item;
             currentItem.setChecked(true);
         }
     }
@@ -240,7 +245,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
         if (mDlMain.isDrawerOpen(GravityCompat.START)) {
             mDlMain.closeDrawers();
         }
-        if (System.currentTimeMillis()- lastTime > 2000) {
+        if (System.currentTimeMillis() - lastTime > 2000) {
             lastTime = System.currentTimeMillis();
             ToastUtils.showShortToast(this, getResources().getString(R.string.exit));
         } else {
@@ -249,11 +254,11 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
     }
 
     private void reLoadActivity() {
-        Intent intent =getIntent();
-        overridePendingTransition(0,0);
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         finish();
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
         startActivity(intent);
     }
 

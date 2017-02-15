@@ -14,6 +14,7 @@ public class FragmentFactory {
     private        ZhihuDaliyFragment mZhihuDaliyFragment;
     private        BookmarkFragment   mBookmarkFragment;
     private        AboutFragment      mAboutFragment;
+    private        SettingFragment    mSettingFragment;
 
     public static FragmentFactory getInstance() {
         if (sFragmentFactory == null) {
@@ -39,6 +40,11 @@ public class FragmentFactory {
                     mAboutFragment = new AboutFragment();
                 }
                 return mAboutFragment;
+            case Constant.TAG_SETTING_FRAGMENT:
+                if (mSettingFragment == null) {
+                    mSettingFragment = new SettingFragment();
+                }
+                return mSettingFragment;
         }
         return null;
     }

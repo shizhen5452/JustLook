@@ -30,5 +30,7 @@
     <string name="email">邮箱</string>
     <string name="clear_cache">清理缓存</string>
     <string name="current_cache">当前缓存</string>
+    <string name="night_mode">夜间模式</string>
+    <string name="switch_night_mode">切换夜间模式</string>
 
 </resources>

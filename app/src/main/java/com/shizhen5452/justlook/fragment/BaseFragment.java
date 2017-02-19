@@ -1,6 +1,5 @@
 package com.shizhen5452.justlook.fragment;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,7 +15,6 @@ import butterknife.Unbinder;
  */
 
 public abstract class BaseFragment extends Fragment {
-    private ProgressDialog mProgressDialog;
     private Unbinder bind;
 
     @Nullable

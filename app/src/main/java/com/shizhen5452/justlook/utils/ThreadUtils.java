@@ -13,7 +13,8 @@ import java.util.concurrent.Executors;
 public class ThreadUtils {
     //确保当前Handler关联上主线程的Looper对象
     private static Handler  sHandler  = new Handler(Looper.getMainLooper());
-    private static Executor sExecutor = Executors.newSingleThreadExecutor();
+    private static Executor sExecutor = Executors.newCachedThreadPool();
+    public static final int DELAY_TIME=1000;
 
     public static void runOnSubThread(Runnable runnable) {
         sExecutor.execute(runnable);
@@ -21,5 +22,9 @@ public class ThreadUtils {
 
     public static void runOnUIThread(Runnable runnable) {
         sHandler.post(runnable);
+    }
+
+    public static void postDelayThread(Runnable runnable) {
+        sHandler.postDelayed(runnable,DELAY_TIME);
     }
 }

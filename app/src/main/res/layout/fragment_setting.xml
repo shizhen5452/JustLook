@@ -37,4 +37,36 @@
     </RelativeLayout>
 
     <include layout="@layout/view_gap"/>
+
+    <TextView
+        style="@style/ItemTitleStyle"
+        android:text="@string/night_mode"
+        android:textColor="?attr/colorPrimary"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rl_night_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/switch_night_mode"
+            android:textColor="@color/md_black_1000"
+            android:layout_centerVertical="true"
+            />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/switch_night_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+
+    <include layout="@layout/view_gap"/>
 </LinearLayout>

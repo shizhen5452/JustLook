@@ -9,6 +9,10 @@
     <color name="transparent">#00000000</color>
     <color name="gray">#FF888888</color>
 
+    <color name="colorPrimary_Night">#494849</color>
+    <color name="colorPrimaryDarkNight">#282626</color>
+    <color name="colorAccentNight">#5c5b5b</color>
+
     <!-- google's material design colours from
    http://www.google.com/design/spec/style/color.html#color-ui-color-palette -->
 

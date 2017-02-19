@@ -1,119 +1,34 @@
 package com.shizhen5452.justlook.adapter;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.shizhen5452.justlook.R;
-import com.shizhen5452.justlook.activity.ZhihuDetailActivity;
 import com.shizhen5452.justlook.bean.ZhihuDaliyItemBean;
-import com.shizhen5452.justlook.utils.DBUtils;
 import com.shizhen5452.justlook.utils.Constant;
-import com.shizhen5452.justlook.viewholder.LoadingMoreViewHolder;
-import com.shizhen5452.justlook.viewholder.ZhihuDaliyViewHolder;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.shizhen5452.justlook.utils.DBUtils;
 
 /**
- * Create by EminemShi on 2017/2/6
+ * Create by EminemShi on 2017/2/18
  */
 
-public class ZhihuDaliyAdapter extends RecyclerView.Adapter{
-    private List<ZhihuDaliyItemBean> mZhihuDaliyItemBeanList=new ArrayList<>();
-    private static final int TYPE_NORMAL       = 1;
-    private static final int TYPE_LOADING_MORE = 2;
-    private Context mContext;
-    private boolean isLoadingMore;
+public class ZhihuDaliyAdapter extends BaseQuickAdapter<ZhihuDaliyItemBean, BaseViewHolder> {
 
-
-    public ZhihuDaliyAdapter(Context context) {
-        mContext=context;
+    public ZhihuDaliyAdapter() {
+        super(R.layout.item_zhihu_daliy);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        switch (viewType) {
-            case TYPE_NORMAL:
-                View zhihuDaliyView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_zhihu_daliy, parent, false);
-                return new ZhihuDaliyViewHolder(zhihuDaliyView);
-            case TYPE_LOADING_MORE:
-                View loadingMoreView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_loading_more, parent, false);
-                return new LoadingMoreViewHolder(loadingMoreView);
-        }
-        return null;
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        int type = getItemViewType(position);
-        switch (type) {
-            case TYPE_NORMAL:
-                onBindZhihuDaliyViewHolder((ZhihuDaliyViewHolder)holder,position);
-                break;
-            case TYPE_LOADING_MORE:
-                onBindLoadingMoreViewHolder((LoadingMoreViewHolder)holder,position);
-                break;
-        }
-
-    }
-
-    private void onBindLoadingMoreViewHolder(LoadingMoreViewHolder holder, int position) {
-        holder.mLoadingMoreProgressBar.setVisibility(isLoadingMore==true?View.VISIBLE:View.GONE);
-    }
-
-    private void onBindZhihuDaliyViewHolder(final ZhihuDaliyViewHolder holder, int position) {
-        final ZhihuDaliyItemBean zhihuDaliyItemBean = mZhihuDaliyItemBeanList.get(position);
-        if (DBUtils.getDB(mContext).isRead(Constant.ZHIHU, zhihuDaliyItemBean.getId() + "", 1)) {
-            holder.mTvTitle.setTextColor(Color.GRAY);
+    protected void convert(BaseViewHolder helper, ZhihuDaliyItemBean item) {
+        if (DBUtils.getDB(mContext).isRead(Constant.ZHIHU, item.getId() + "", 1)) {
+            helper.setTextColor(R.id.tv_title,Color.GRAY);
         } else {
-            holder.mTvTitle.setTextColor(Color.BLACK);
+            helper.setTextColor(R.id.tv_title,Color.BLACK);
         }
-        holder.mTvTitle.setText(zhihuDaliyItemBean.getTitle());
-        Glide.with(mContext.getApplicationContext()).load(zhihuDaliyItemBean.getImages()[0]).into(holder.mIvPic);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goZhihuDetailActivity(holder,zhihuDaliyItemBean);
-            }
-        });
-    }
-
-    private void goZhihuDetailActivity(ZhihuDaliyViewHolder holder, ZhihuDaliyItemBean zhihuDaliyItemBean) {
-        DBUtils.getDB(mContext).putIsRead(Constant.ZHIHU,zhihuDaliyItemBean.getId()+"",1);
-        holder.mTvTitle.setTextColor(Color.GRAY);
-        Intent intent = new Intent(mContext, ZhihuDetailActivity.class);
-        intent.putExtra(Constant.ZHIHU_DALIY_ID,zhihuDaliyItemBean.getId());
-        mContext.startActivity(intent);
-    }
-
-    @Override
-    public int getItemCount() {
-        return mZhihuDaliyItemBeanList == null ? 0 : mZhihuDaliyItemBeanList.size();
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (position == mZhihuDaliyItemBeanList.size()) {
-            return TYPE_LOADING_MORE;
-        }
-        return TYPE_NORMAL;
-    }
-
-
-    public void clearData() {
-        mZhihuDaliyItemBeanList.clear();
-        notifyDataSetChanged();
-    }
-
-    public void addItems(List<ZhihuDaliyItemBean> stories) {
-        mZhihuDaliyItemBeanList.addAll(stories);
-        notifyDataSetChanged();
+        helper.setText(R.id.tv_title,item.getTitle());
+        Glide.with(mContext).load(item.getImages()[0]).into((ImageView)helper.getView(R.id.iv_pic));
     }
 }
-

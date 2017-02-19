@@ -1,5 +1,6 @@
 package com.shizhen5452.justlook.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -52,15 +53,13 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailView
     FloatingActionButton    mFab;
     private int DEFAULT_ID = 3892357;
     private ZhihuDetailPresenter mZhihuDetailPresenter;
-    private boolean isBookmarked;
-    private int mId;
+    private boolean              isBookmarked;
+    private int                  mId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        int themeId = SPUtils.getInstance(this).getThemeId(Constant.SP_KEY_THEME_ID, -1);
-        if (themeId != -1) {
-            setTheme(themeId);
-        }
+        int themeId = SPUtils.getInstance(this).getThemeId(Constant.SP_KEY_THEME_ID, R.style.AppTheme);
+        setTheme(themeId);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zhihu_detail);
         ButterKnife.bind(this);
@@ -82,13 +81,7 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailView
         showProgressDialog(getResources().getString(R.string.loading));
         mZhihuDetailPresenter = new ZhihuDetailPresenterImpl(this);
 
-        mWv.setScrollbarFadingEnabled(true);
-        WebSettings settings = mWv.getSettings();
-        settings.setJavaScriptEnabled(true);
-        settings.setBuiltInZoomControls(false);
-        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        settings.setDomStorageEnabled(true);
-        settings.setAppCacheEnabled(false);
+        initWebSettings();
         mWv.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -96,6 +89,52 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailView
                 return true;
             }
         });
+    }
+
+    private void initWebSettings() {
+        WebSettings settings = mWv.getSettings();
+
+        //支持获取手势焦点
+        mWv.requestFocusFromTouch();
+        //支持JS
+        settings.setJavaScriptEnabled(true);
+        //支持插件
+        settings.setPluginState(WebSettings.PluginState.ON);
+        //设置适应屏幕
+//        settings.setUseWideViewPort(true);
+//        settings.setLoadWithOverviewMode(true);
+        //支持缩放
+        settings.setSupportZoom(true);
+        // 显示缩放按钮(wap网页不支持)
+        settings.setBuiltInZoomControls(true);
+        // 支持双击缩放(wap网页不支持)
+//        settings.setUseWideViewPort(true);
+        //隐藏原生缩放控件
+        settings.setDisplayZoomControls(false);
+        //支持内容重新布局
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        settings.supportMultipleWindows();
+        settings.setSupportMultipleWindows(true);
+        //设置缓存模式
+        settings.setDomStorageEnabled(true);
+        settings.setDatabaseEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        settings.setAppCacheEnabled(true);
+        settings.setAppCachePath(mWv.getContext().getCacheDir().getAbsolutePath());
+
+        //设置可访问文件
+        settings.setAllowFileAccess(true);
+        //当webview调用requestFocus时为webview设置节点
+        settings.setNeedInitialFocus(true);
+        //支持自动加载图片
+        if (Build.VERSION.SDK_INT >= 19) {
+            settings.setLoadsImagesAutomatically(true);
+        } else {
+            settings.setLoadsImagesAutomatically(false);
+        }
+        settings.setNeedInitialFocus(true);
+        //设置编码格式
+        settings.setDefaultTextEncodingName("UTF-8");
     }
 
     private void initListener() {
@@ -118,11 +157,11 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailView
     private void initData() {
         mId = getIntent().getIntExtra(Constant.ZHIHU_DALIY_ID, DEFAULT_ID);
         mZhihuDetailPresenter.initDetail(mId);
-        if (DBUtils.getDB(this).isBookmarked(Constant.ZHIHU, mId+"", 1)) {
+        if (DBUtils.getDB(this).isBookmarked(Constant.ZHIHU, mId + "", 1)) {
             isBookmarked = true;
             mFab.setImageResource(R.mipmap.ic_favorite_red_a700_48dp);
         } else {
-            isBookmarked=false;
+            isBookmarked = false;
             mFab.setImageResource(R.mipmap.ic_favorite_white_48dp);
         }
     }
@@ -171,12 +210,12 @@ public class ZhihuDetailActivity extends BaseActivity implements ZhihuDetailView
     public void onClick(View v) {
         if (!isBookmarked) {
             mFab.setImageResource(R.mipmap.ic_favorite_red_a700_48dp);
-            DBUtils.getDB(this).putIsBookmark(Constant.ZHIHU,mId+"",1);
+            DBUtils.getDB(this).putIsBookmark(Constant.ZHIHU, mId + "", 1);
             isBookmarked = true;
             ToastUtils.showShortToast(this, "已收藏");
         } else {
             mFab.setImageResource(R.mipmap.ic_favorite_white_48dp);
-            DBUtils.getDB(this).deleteIsBookmark(Constant.ZHIHU,mId+"");
+            DBUtils.getDB(this).deleteIsBookmark(Constant.ZHIHU, mId + "");
             isBookmarked = false;
             ToastUtils.showShortToast(this, "取消收藏");
         }

@@ -9,6 +9,7 @@ import com.shizhen5452.justlook.bean.ZhihuDaliyItemBean;
 import com.shizhen5452.justlook.presenter.ZhihuDaliyPresenter;
 import com.shizhen5452.justlook.utils.CacheUtil;
 import com.shizhen5452.justlook.utils.Constant;
+import com.shizhen5452.justlook.utils.ThreadUtils;
 import com.shizhen5452.justlook.view.ZhihuDaliyView;
 
 import retrofit2.Call;
@@ -60,27 +61,33 @@ public class ZhihuDaliyPresenterImpl implements ZhihuDaliyPresenter {
     }
 
     @Override
-    public void loadMore(String date) {
-        ApiManager.getInstance().getZhihuApiService().getBeforeDetail(date).enqueue(new Callback<ZhihuDaliyBean>() {
+    public void loadMore(final String date) {
+        ThreadUtils.postDelayThread(new Runnable() {
             @Override
-            public void onResponse(Call<ZhihuDaliyBean> call, Response<ZhihuDaliyBean> response) {
-                if (response.isSuccessful()) {
-                    ZhihuDaliyBean zhihuDaliyBean = response.body();
-                    String date = zhihuDaliyBean.getDate();
-                    for (ZhihuDaliyItemBean zhihuDaliyItemBean : zhihuDaliyBean.getStories()) {
-                        zhihuDaliyItemBean.setDate(date);
+            public void run() {
+                ApiManager.getInstance().getZhihuApiService().getBeforeDetail(date).enqueue(new Callback<ZhihuDaliyBean>() {
+                    @Override
+                    public void onResponse(Call<ZhihuDaliyBean> call, Response<ZhihuDaliyBean> response) {
+                        if (response.isSuccessful()) {
+                            ZhihuDaliyBean zhihuDaliyBean = response.body();
+                            String date = zhihuDaliyBean.getDate();
+                            for (ZhihuDaliyItemBean zhihuDaliyItemBean : zhihuDaliyBean.getStories()) {
+                                zhihuDaliyItemBean.setDate(date);
+                            }
+                            mZhihuDaliyView.onLoadMore(zhihuDaliyBean);
+                        } else {
+                            mZhihuDaliyView.onLoadMoreError();
+                        }
                     }
-                    mZhihuDaliyView.onLoadMore(zhihuDaliyBean);
-                } else {
-                    mZhihuDaliyView.onError();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<ZhihuDaliyBean> call, Throwable t) {
-                mZhihuDaliyView.onError();
+                    @Override
+                    public void onFailure(Call<ZhihuDaliyBean> call, Throwable t) {
+                        mZhihuDaliyView.onLoadMoreError();
+                    }
+                });
             }
         });
+
     }
 
     @Override

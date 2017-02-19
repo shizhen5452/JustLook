@@ -6,52 +6,27 @@
     android:layout_height="match_parent"
     >
 
-    <android.support.design.widget.CoordinatorLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-            <com.bigkoo.convenientbanner.ConvenientBanner
-                android:id="@+id/convenientBanner"
-                android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:background="@color/white"
-                app:canLoop="true"
-                app:layout_scrollFlags="scroll"
-                />
-
-        </android.support.design.widget.AppBarLayout>
-
-        <FrameLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_zhihu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_zhihu"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+        <TextView
+            android:id="@+id/tv_no_connection_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/no_connection"
+            android:visibility="gone"
+            >
+        </TextView>
 
-            <TextView
-                android:id="@+id/tv_no_connection_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/no_connection"
-                android:layout_gravity="center_horizontal"
-                android:paddingTop="150dp"
-                android:visibility="gone"
-                >
-            </TextView>
+    </FrameLayout>
 
-        </FrameLayout>
-
-    </android.support.design.widget.CoordinatorLayout>
 </android.support.v4.widget.SwipeRefreshLayout>
 

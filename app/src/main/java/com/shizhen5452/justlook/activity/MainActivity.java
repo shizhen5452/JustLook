@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -27,6 +29,7 @@ import com.shizhen5452.justlook.fragment.SettingFragment;
 import com.shizhen5452.justlook.fragment.ZhihuDaliyFragment;
 import com.shizhen5452.justlook.presenter.MainPresenter;
 import com.shizhen5452.justlook.presenter.presenterimpl.MainPresenterImpl;
+import com.shizhen5452.justlook.service.KillSelfService;
 import com.shizhen5452.justlook.utils.Constant;
 import com.shizhen5452.justlook.utils.SPUtils;
 import com.shizhen5452.justlook.utils.ToastUtils;
@@ -64,11 +67,9 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mThemeId = SPUtils.getInstance(this).getThemeId(Constant.SP_KEY_THEME_ID, -1);
-        if (mThemeId != -1) {
-            setTheme(mThemeId);
-        }
         super.onCreate(savedInstanceState);
+        mThemeId = SPUtils.getInstance(this).getThemeId(Constant.SP_KEY_THEME_ID,R.style.AppTheme);
+        setTheme(mThemeId);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -160,7 +161,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         mRadioButtonList.clear();
 
-        View view = LayoutInflater.from(this).inflate(R.layout.dialog_color_select, null);
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_color_select, (ViewGroup) findViewById(android.R.id.content), false);
 
         RadioButton rbTeal = (RadioButton) view.findViewById(R.id.rb_teal);
         RadioButton rbRed = (RadioButton) view.findViewById(R.id.rb_red);
@@ -182,7 +183,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
         mRadioButtonList.add(rbGrey);
         mRadioButtonList.add(rbBlack);
 
-        if (mThemeId != -1) {
+        if (mThemeId != R.style.AppTheme) {
             for (int i = 0; i < mThemes.length; i++) {
                 if (mThemes[i] == mThemeId) {
                     mRadioButtonList.get(i).setChecked(true);
@@ -198,13 +199,19 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
                 for (int i = 0; i < mRadioButtonList.size(); i++) {
                     if (mRadioButtonList.get(i).isChecked()) {
                         SPUtils.getInstance(MainActivity.this).putThemeId(Constant.SP_KEY_THEME_ID, mThemes[i]);
                     }
                 }
-                ToastUtils.showShortToast(MainActivity.this, "重启应用后生效");
+                Snackbar.make(mToolbar, "重启应用后生效", Snackbar.LENGTH_LONG)
+                        .setAction("立即重启", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                reStartApplication();
+                            }
+                        }).show();
+                dialog.dismiss();
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -214,6 +221,13 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
             }
         });
         builder.create().show();
+    }
+
+    public void reStartApplication() {
+        Intent intent = new Intent(this, KillSelfService.class);
+        intent.putExtra(Constant.INTENT_PACKAGE_NAME, getPackageName());
+        startService(intent);
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 
     private void setMenuItemState(MenuItem item) {
@@ -253,10 +267,9 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
         }
     }
 
-    private void reLoadActivity() {
+    private void reStartActivity() {
         Intent intent = getIntent();
         overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         finish();
         overridePendingTransition(0, 0);
         startActivity(intent);

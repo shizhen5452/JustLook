@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Create by EminemShi on 2017/2/9
  */
 
-public class ZhihuDaliyItemBean {
+public class ZhihuDaliyItemBean{
     @SerializedName("images")
     private String[] images;
     @SerializedName("type")
@@ -57,4 +57,5 @@ public class ZhihuDaliyItemBean {
     public void setDate(String date) {
         this.date = date;
     }
+
 }

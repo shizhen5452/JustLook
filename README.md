@@ -29,12 +29,12 @@
 ![](http://img.blog.csdn.net/20170219224215902?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvZ3Vhc3o=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 ## 使用的第三方开源库
-> 数据来源：[知乎API](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)
-> 图片加载框架：[Glide](https://github.com/bumptech/glide)
-> 网络请求框架：[Retrofit](https://github.com/square/retrofit)
-> view注解框架：[ButterKnife](https://github.com/JakeWharton/butterknife)
-> 基类适配器：[BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
-> 轮播图：[ConvenientBanner](https://github.com/saiwu-bigkoo/Android-ConvenientBanner)
-> 事件总线：[EventBus](https://github.com/greenrobot/EventBus)
+- 数据来源：[知乎API](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)
+- 图片加载框架：[Glide](https://github.com/bumptech/glide)
+- 网络请求框架：[Retrofit](https://github.com/square/retrofit)
+- view注解框架：[ButterKnife](https://github.com/JakeWharton/butterknife)
+- 基类适配器：[BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
+- 轮播图：[ConvenientBanner](https://github.com/saiwu-bigkoo/Android-ConvenientBanner)
+- 事件总线：[EventBus](https://github.com/greenrobot/EventBus)
 
 
